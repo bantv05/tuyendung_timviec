@@ -73,8 +73,19 @@ public class JobOfferService implements IJobOfferService {
     public JobOffer updateJobOffer(Integer id, JobOfferDTO jobOfferDTO) throws DataNotFoundException {
         JobOffer jobOffer = iJobOfferRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("Cannot jobOffer with id"+id));
-//        modelMapper.map(jobOfferDTO, JobOffer.class);
-        return iJobOfferRepository.save(modelMapper.map(jobOfferDTO, JobOffer.class));
+        JobOffer offer = jobOffer.toBuilder()
+                .idJobOffer(jobOffer.getIdJobOffer())
+                .jobTitle(jobOfferDTO.getJobTitle())
+                .level(jobOfferDTO.getLevel())
+                .maxSalary(jobOfferDTO.getMaxSalary())
+                .minSalary(jobOfferDTO.getMinSalary())
+                .technologies(jobOfferDTO.getTechnologies())
+                .imageList(jobOfferDTO.getImageList())
+                .description(jobOfferDTO.getDescription())
+                .workType(jobOffer.getWorkType())
+                .companyInformation(jobOfferDTO.getCompanyInformation())
+                .build();
+        return iJobOfferRepository.save(offer);
     }
 
     @Override

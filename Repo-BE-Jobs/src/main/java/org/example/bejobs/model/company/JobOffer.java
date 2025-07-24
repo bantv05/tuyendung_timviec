@@ -2,14 +2,15 @@ package org.example.bejobs.model.company;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
-
+@Builder(toBuilder = true)
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
